@@ -37,6 +37,8 @@
   - byte, short, int(4 byte), long
 - 실수형
   - float, double(8 byte)
+- 기본형은 객체가 아니므로 null 값을 가질 수 없음 -> wrapper class 이용
+- unsigned는 지원하지 않음
 
 ### 상수와 리터럴
 - 상수: 값을 한 번 저장하면 변경할 수 없는 저장 공간, 타입 앞에 final 키워드 명시
