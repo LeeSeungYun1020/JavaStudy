@@ -48,3 +48,34 @@ Object --- Throwable -┬- Exception -┬- RuntimeException       -┬- Arithmet
 - Exception 클래스는 checked 예외로 예외처리가 강제됨
 - RuntimeException 클래스는 unchecked 예외로 예외처리 강제 X
 
+### 메소드에 예외 선언
+- 호출한 메소드에 예외 전달하여 예외처리 맡김
+- 메소드 선언부에 throws를 이용 발생할 수 있는 예외 작성
+- 일반적으로 예외 처리가 강제되는 Exception 예외만 작성
+
+### finally 블록
+- 예외 발생 여부에 상관없이 실행되어야할 코드, 선택적
+- try 및 catch 블록에서 return이 실행되어도 finally가 실행된 후 메소드가 종료됨
+- finally 내에 return이 있을 경우(try나 catch가 아닌) 해당 값이 반환
+
+### 자동 자원 반환 - try-with-resources문
+- 특히 입출력 파트에서 사용이 끝난 후 닫아주어 자원을 반환해야 하는 클래스가 존재
+  - 기존의 finally를 이용할 경우 close할 때 또다른 예외 발생 가능
+  - close 이전에 발생한 예외에 대해 감지할 수 없음(무시됨)
+- try() 괄호 안에 객체 생성 문장을 넣으면 자동으로 close가 호출된 후 catch, finally 수행
+  - AutoCloseable 인터페이스 구현 필요
+  - close에서 빌생한 예외는 suppressed exception으로 처리됨
+
+### 사용자정의 예외 만들기
+- Exception(checked) 또는 RuntimeException(unchecked) 클래스를 상속받아 새로운 예외 클래스 정의 가능
+- 메시지 String 값을 받아 super()로 초기화 필요
+
+### 예외 되던지기(exception re-throwing)
+- try-catch를 통해 일부 예외를 처리하고 다시 호출한 메소드에서 처리하도록 함
+- 예외가 발생한 메소드와 호출한 메소드 양쪽에서 처리해줘야 할 작업에 사용
+
+### 연결된 예외
+- 한 예외가 다른 예외 발생시킬 수 있음
+- 여러가지 예외를 하나의 큰 분류의 예외로 묶어서 다룸
+  - 상속 관계를 이용하면 실제 발생 예외를 파악할 수 없고 예외 클래스들의 상속 관계를 변경해야 함
+- checked 예외를 unchecked 예외로 변경 가능 (RuntimeException(new Exception()))
