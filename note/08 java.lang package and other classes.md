@@ -123,7 +123,7 @@
 - 괄호로 묶어 그룹화
 - group(int i)를 통해 나누어 얻을 수 있음
 - Matcher 인스턴스의 find로 패턴과 일치하는 부분 있는지 확인 가능
-- Ex: 전화번호 (0\\d{1,2})-(\\d{3,4})-(\\d{4})
+- Ex: 전화번호 (0\\\\d{1,2})-(\\\\d{3,4})-(\\\\d{4})
 #### 문자열 치환
 - Matcher 인스턴스(m)의 appendReplacement(StringBuffer sb, String replacement) 이용
   - source의 시작부터 찾은 위치까지의 내용에 변경해서 저장
