@@ -91,3 +91,95 @@
 - 오토박싱과 언박싱
   - 오토박싱: 기본형 값 -> 래퍼 클래스 객체
   - 언박싱: 래퍼 클래스 객체 -> 기본형 값
+
+## 유용한 클래스
+### java.util.Objects 클래스
+- Object 클래스의 보조 클래스, 객체 비교와 null 체크에 유용
+- isNull(), nonNull(): null 체크
+- requireNonNull(): null인 경우 NullPointerException 발생, 다음 인자로 에러 메시지 전달 가능
+- compare(): 같으면 0, 크면 양수, 작으면 음수 반환
+- equals(): null 검사 불필요 ((a == b) || (a != null && a.equals(b)))
+- deepEquals(): 객체를 재귀적으로 비교 -> 다차원 배열 비교 가능
+- toString(): 내부적으로 null 검사, default 값 지정 가능
+- hashCode(): null 검사 후 Object 클래스의 hashCode 호출, null인 경우 0 반환
+- hash(): hashCode 함수를 오버라이딩할 때, 매개변수 타입이 가변인자인 이 함수 이용하면 편리
+
+### java.util.Random 클래스
+- 난수를 얻을 때 사용하는 클래스
+- Math.random()은 내부적으로 Random 클래스의 인스턴스를 생성해 사용
+- 시드 값을 지정 가능, 시드는 기본적으로 현재시간(System.currentTimeMillis())로 초기화
+- nextInt() bound 지정 가능
+
+### 정규식(java.util.regex 패키지)
+- 텍스트 데이터 중 원하는 조건(패턴)과 일치하는 문자열 찾기 위해 사용
+#### 정규식 정의 및 비교
+- 정규식을 매개변수로 Pattern 클래스의 static 메소드인 Pattern compile(String regex)을 호출하여 Pattern 인스턴스를 얻는다.
+  - Pattern p = Pattern.compile("c[a-z]*");
+- 정규식으로 비교할 대상을 매개변수로 Pattern 클래스의 Matcher matcher(CharSequence input)를 호출해서 Matcher 인스턴스를 얻는다.
+  - Matcher m = p.matcher(data[i]);
+- Matcher 인스턴스에 boolean matches()를 호출해서 정규식에 부합하는지 확인한다.
+  - if(m.matches())
+#### 정규식 그룹화
+- 괄호로 묶어 그룹화
+- group(int i)를 통해 나누어 얻을 수 있음
+- Matcher 인스턴스의 find로 패턴과 일치하는 부분 있는지 확인 가능
+- Ex: 전화번호 (0\\d{1,2})-(\\d{3,4})-(\\d{4})
+#### 문자열 치환
+- Matcher 인스턴스(m)의 appendReplacement(StringBuffer sb, String replacement) 이용
+  - source의 시작부터 찾은 위치까지의 내용에 변경해서 저장
+- m.find는 앞서 발견된 위치의 끝에서부터 다시 검색 시작
+- m.appendTail으로 남은 부분 버퍼에 덧붙임
+```java
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Useful7 {
+    public static void main(String[] args) {
+        String source = "A broken hand works, but not a broken heart.";
+        String pattern = "broken";
+        StringBuffer sb = new StringBuffer();
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(source);
+        System.out.println("Source: " + source);
+
+        while (m.find()) {
+            System.out.println("매칭: " + m.start() + "~" + m.end());
+            m.appendReplacement(sb, "drunken");
+        }
+        m.appendTail(sb);
+        System.out.println("result: " + sb.toString());
+    }
+}
+```
+
+### java.util.Scanner 클래스
+- 화면, 파일, 문자열과 같은 입력소스에서 문자 데이터 읽을 때 도움을 주는 클래스
+- 정규식 표현을 이용한 라인단위 검색 지원
+- 구분자 단위 입력 가능(구분자도 정규식 지원)
+  - new Scanner(line).useDelimiter(",")
+
+### java.util.StringTokenizer 클래스
+- 문자열을 구분자를 기준으로 토큰이라는 여러 개의 문자열로 자를 때 사용하는 클래스
+- 여러 구분자 허용, 구분자로는 하나의 문자만 허용(구분자가 두 문자 이상이면 Scanner, String의 split 이용 필요)
+  - "+-*/"면 +, -, *, / 모두 구분자
+- split 메소드와 달리 빈 문자열은 토큰으로 인식하지 않음
+
+### java.math.BigInteger 클래스
+- long보다 더 큰 정수형 값 다루는 클래스
+- 값을 int 배열로 저장하며 String처럼 불변 (+-2 ^ Integer.MAX_VALUE 까지 표현 가능)
+- 초기화시 정수형 리터럴로는 표현 가능한 값에 한게가 있으므로 문자열로 표현하는 것이 일반적
+- toByteArray로 바이트 배열로 변환 가능하며, intValue, intValueExact(ArithmeticException 발생) 지원
+- 산술 연산, 비트 연산 메소드 정의
+
+### java.math.BigDecimal 클래스
+- double보다 더 정밀한 실수형 값 다루는 클래스
+- 실수형의 오차는 10진 실수를 2진 실수로 바꿔 저장하기 때문인데 오차가 없는 2진 정수로 변환하여 다룸
+- 정수(unscaled value, BigInteger), 지수(scale), 정밀도(precision) 저장
+- 초기화시 실수형 리터럴로는 표현 가능한 값에 한계가 있으므로 문자열로 표현하는 것이 일반적
+  - double 타입 사용시 오차 발생 가능(Ex: 0.1)
+- toPlainString으로 지수 형태 아닌 숫자로만 표현 가능, intValue, intValueExact(ArithmeticException 발생) 지원
+- 산술 연산 지원 - 연산 결과의 정수, 지수, 정밀도가 달라짐
+- divide는 나눗셈 결과 반올림 방법(roundingMode)과 몇 번째 자리(scale)에서 반올림할 것인지 지정 가능
+  - 열거형 RoundMode에서 CEILING, FLOOR, UP, DOWN, HALF_UP, HALF_EVEN, HALF_DOWN, UNNECESSARY 제공
+  - 1.0/3.0 같이 결과가 무한소수일 경우 반올림 모드 미지정시 ArithmeticException 발생
+- setScale로 지수값 변경 가능(scale 값 줄일 때에는 반올림 모드 지정 필요)
