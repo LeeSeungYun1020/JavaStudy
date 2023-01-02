@@ -153,3 +153,11 @@
 - HashSet: HashMap 이용하여 구현(value로 빈 object 저장)
 - TreeSet: TreeMap 이용하여 구현
 - LinkedHashMap/LinkedHashSet: HashMap과 HashSet에 저장 순서 유지 기능 추가
+
+## 동기화 관련 피드백
+
+- 멀티 스레드 환경에서 ArrayList는 ConcurrentModificationException 발생
+- CopyOnWriteArrayList 사용하여 동기화 문제 해결
+  - 수정 작업시 매번 복사본을 이용하여 작업하기 때문에 읽기 동작이 락되지 않음
+  - 읽기 작업은 빠르나 수정 작업은 느리고 큰 비용이 필요
+  - 크기가 작고 주로 읽기 순회 작업을 수행하는 리스트에 유리
