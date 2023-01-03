@@ -73,10 +73,126 @@ class Box<T> {}
 - 와일드 카드가 사용된 지네릭 타입(Box\<? extends Object\>)간 변환 가능(경고 발생)
 
 ### 지네릭 타입의 제거
+
 - 지네릭 도입 이전 코드(1.5 미만)와의 호환성을 위해 원시 타입을 사용한 코드 작성 허용
 - 컴파일러는 지네릭 타입으로 소스 파일을 체크하고 형변환을 넣어준 뒤 지네릭 타입을 제거
+
 1. 지네릭 타입의 경계 제거
-   - \<T\>이면 T는 Object로, \<T extends Fruit\>라면 T는 Fruit로 치환
-   - 클래스 옆의 선언(\<\> 부분) 제거
+  - \<T\>이면 T는 Object로, \<T extends Fruit\>라면 T는 Fruit로 치환
+  - 클래스 옆의 선언(\<\> 부분) 제거
 2. 지네릭 타입 제거 후 타입이 일치하지 않으면 형변환 추가
-   - 와일드 카드가 포함된 경우 적절한 타입으로 형변환(\<? extends Fruit\> -> Fruit)
+  - 와일드 카드가 포함된 경우 적절한 타입으로 형변환(\<? extends Fruit\> -> Fruit)
+
+## 열거형
+
+### 열거형이란?
+
+- 서로 관련된 상수를 묶어서 선언
+- 타입에 안전한 열거형
+- 열거형을 사용하지 않고 상수를 사용하면 상수의 값이 바뀔 경우 참조하는 모든 소스 재컴파일 필요
+
+### 열거형 정의와 사용
+
+- enum 열거형명 { 상수1, 상수2 }
+- static 변수를 참조하는 것처럼 열거형명.상수명으로 사용
+- ==으로 비교 가능하고 switch문에도 사용 가능
+
+### 열거형의 조상 - java.lang.Enum
+
+- values(): 열거형의 모든 상수를 배열에 담아 반환
+- ordinal(): 상수가 정의된 순서를 정수로 반환
+- name(): 상수의 이름을 문자열로 반환
+- valueOf(name): name과 일치하는 상수 반환
+
+### 열거형에 멤버 추가하기
+
+- 인스턴스 변수와 생성자를 추가하여 값을 저장하도록 구현 가능
+- 추상 메소드를 추가하여 각 열거형 상수가 추상 메소드를 구현하도록 설계 가능
+
+### 열거형의 이해
+
+- 열거형 상수 하나하나는 사실 해당 객체
+- 각 static 상수 값은 객체의 주소이며 바뀌지 않으므로 ==으로 비교가 가능했던 것
+- 추상 메소드를 선언하면 구현해야하는 것도 같은 이유
+
+```java
+enum Transportation {
+  BUS(100) {
+    @Override
+    int fare(int distance) {
+      return distance * basicFare;
+    }
+  }, TRAIN(150) {
+    @Override
+    int fare(int distance) {
+      return distance * basicFare;
+    }
+  };
+
+  abstract int fare(int distance);
+
+  protected final int basicFare;
+
+  Transportation(int basicFare) {
+    this.basicFare = basicFare;
+  }
+
+  public int getBasicFare() {
+    return basicFare;
+  }
+}
+```
+
+```java
+abstract class MyEnum<T extends MyEnum<T>> implements Comparable<T> {
+  static int id = 0;
+  private final int ordinal;
+  private String name = "";
+
+  public int ordinal() {
+    return ordinal;
+  }
+
+  public String name() {
+    return name;
+  }
+
+  public String toString() {
+    return name;
+  }
+
+  MyEnum(String name) {
+    this.name = name;
+    ordinal = id++;
+  }
+
+  @Override
+  public int compareTo(T o) {
+    return ordinal - o.ordinal();
+  }
+}
+
+abstract class MyTransportaion extends MyEnum {
+  static final MyTransportaion BUS = new MyTransportaion("BUS", 100) {
+    @Override
+    int fare(int distance) {
+      return distance * BASIC_FARE;
+    }
+  };
+  static final MyTransportaion TRAIN = new MyTransportaion("TRAIN", 150) {
+    @Override
+    int fare(int distance) {
+      return distance * BASIC_FARE;
+    }
+  };
+
+  abstract int fare(int distance);
+
+  protected final int BASIC_FARE;
+
+  private MyTransportaion(String name, int basicFare) {
+    super(name);
+    this.BASIC_FARE = basicFare;
+  }
+}
+```
