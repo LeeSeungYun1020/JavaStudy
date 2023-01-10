@@ -16,6 +16,7 @@
   - ActivityResultContracts.RequestMultiplePermissions 타입의 권한 확인 용도로 지정하기 위한 객체를 생성
   - registerForActivityResult로 RequestMultiplePermissions와 callback 전달하여 런처 생성
   - 런처의 launch 메소드 호출하여 특정 권한만 확인하도록 구현
+  - 권한 확인에서 callback 없는 경우(null) 오류 발생
 
 ## Option Menu
 
