@@ -1,5 +1,8 @@
 package com.leeseungyun1020.messaging;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -7,12 +10,16 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.leeseungyun1020.messaging.databinding.ActivityMainBinding;
 import com.leeseungyun1020.messaging.databinding.CustomLayoutBinding;
+
+import java.util.Calendar;
+import java.util.function.ObjIntConsumer;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -26,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         binding.toastButton.setOnClickListener(this::toast);
         binding.snackbarButton.setOnClickListener(this::snackbar);
         binding.snackbarCustomButton.setOnClickListener(this::snackbarCustom);
+        binding.commonDialogButton.setOnClickListener(this::commonDialog);
+        binding.customDialogButton.setOnClickListener(this::customDialog);
+        binding.datepickerDialogButton.setOnClickListener(this::datePickerDialog);
+        binding.timepickerDialogButton.setOnClickListener(this::timePickerDialog);
     }
 
     private void toast(View view) {
@@ -99,5 +110,78 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         snackbar.show();
+    }
+
+    private void commonDialog(View view) {
+        ObjIntConsumer<DialogInterface> bc = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    binding.statusText.setText("Common dialog closed(positive)");
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    binding.statusText.setText("Common dialog closed(neutral)");
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    binding.statusText.setText("Common dialog closed(negative)");
+                    break;
+            }
+        };
+        new AlertDialog.Builder(this)
+                .setTitle("Common dialog")
+                .setMessage("This is basic dialog")
+                .setIcon(R.drawable.ic_baseline_rabbit_24)
+                .setPositiveButton("Positive", bc::accept)
+                .setNeutralButton("Neutral", bc::accept)
+                .setNegativeButton("Negative", bc::accept)
+                .show();
+    }
+
+    private void customDialog(View view) {
+        ObjIntConsumer<DialogInterface> bc = (dialog, which) -> {
+            switch (which) {
+                case DialogInterface.BUTTON_POSITIVE:
+                    binding.statusText.setText("Custom dialog closed(positive)");
+                    break;
+                case DialogInterface.BUTTON_NEUTRAL:
+                    binding.statusText.setText("Custom dialog closed(neutral)");
+                    break;
+                case DialogInterface.BUTTON_NEGATIVE:
+                    binding.statusText.setText("Custom dialog closed(negative)");
+                    break;
+            }
+        };
+        CustomLayoutBinding customBinding = CustomLayoutBinding.inflate(getLayoutInflater());
+        customBinding.customImage.setImageResource(R.drawable.ic_baseline_rabbit_24);
+        customBinding.customText.setText("Custom Dialog!");
+        new AlertDialog.Builder(this)
+                .setTitle("Custom dialog")
+                .setView(customBinding.getRoot())
+                .setIcon(R.drawable.ic_baseline_rabbit_24)
+                .setPositiveButton("Positive", bc::accept)
+                .setNeutralButton("Neutral", bc::accept)
+                .setNegativeButton("Negative", bc::accept)
+                .show();
+    }
+
+    private void datePickerDialog(View view) {
+        DatePickerDialog dialog = new DatePickerDialog(this);
+        dialog.setTitle("Pick date!");
+        dialog.setOnDateSetListener((picker, year, month, date) -> {
+            binding.statusText.setText(String.format("Date picker(%d/%d/%d)", year, month + 1, date));
+        });
+        dialog.show();
+    }
+
+    private void timePickerDialog(View view) {
+        Calendar calendar = Calendar.getInstance();
+        new TimePickerDialog(
+                this,
+                (picker, hour, minute) -> {
+                    binding.statusText.setText(String.format("Time picker (%d:%d)", hour, minute));
+                },
+                calendar.get(Calendar.HOUR),
+                calendar.get(Calendar.MINUTE),
+                false)
+                .show();
     }
 }
