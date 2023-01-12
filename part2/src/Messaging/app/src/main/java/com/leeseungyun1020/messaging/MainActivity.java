@@ -1,9 +1,17 @@
 package com.leeseungyun1020.messaging;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
@@ -14,6 +22,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.Person;
+import androidx.core.graphics.drawable.IconCompat;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,25 +38,8 @@ import java.util.function.ObjIntConsumer;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        binding.toastButton.setOnClickListener(this::toast);
-        binding.snackbarButton.setOnClickListener(this::snackbar);
-        binding.snackbarCustomButton.setOnClickListener(this::snackbarCustom);
-        binding.commonDialogButton.setOnClickListener(this::commonDialog);
-        binding.customDialogButton.setOnClickListener(this::customDialog);
-        binding.datepickerDialogButton.setOnClickListener(this::datePickerDialog);
-        binding.timepickerDialogButton.setOnClickListener(this::timePickerDialog);
-        binding.listDialogButton.setOnClickListener(this::listDialog);
-        binding.customListDialogButton.setOnClickListener(this::customListDialog);
-        binding.singleChoiceDialogButton.setOnClickListener(this::singleChoiceDialog);
-        binding.multiChoiceDialogButton.setOnClickListener(this::multiChoiceDialog);
-    }
+    private static final String channelId = "Channel_0";
+    private static final String channelName = "styled";
 
     private void toast(View view) {
         Toast toast = Toast.makeText(this, "TOAST", Toast.LENGTH_LONG);
@@ -263,5 +257,171 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    NotificationManager manager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        binding.toastButton.setOnClickListener(this::toast);
+        binding.snackbarButton.setOnClickListener(this::snackbar);
+        binding.snackbarCustomButton.setOnClickListener(this::snackbarCustom);
+        binding.commonDialogButton.setOnClickListener(this::commonDialog);
+        binding.customDialogButton.setOnClickListener(this::customDialog);
+        binding.datepickerDialogButton.setOnClickListener(this::datePickerDialog);
+        binding.timepickerDialogButton.setOnClickListener(this::timePickerDialog);
+        binding.listDialogButton.setOnClickListener(this::listDialog);
+        binding.customListDialogButton.setOnClickListener(this::customListDialog);
+        binding.singleChoiceDialogButton.setOnClickListener(this::singleChoiceDialog);
+        binding.multiChoiceDialogButton.setOnClickListener(this::multiChoiceDialog);
+        binding.notificationButton.setOnClickListener(this::notification);
+        binding.bigPictureNotificationButton.setOnClickListener(this::bigPictureNotification);
+        binding.bigTextNotificationButton.setOnClickListener(this::bigTextNotification);
+        binding.inBoxNotificationButton.setOnClickListener(this::inBoxNotification);
+        binding.messagingNotificationButton.setOnClickListener(this::messagingNotification);
+    }
+
+    private void createNotificationChannel(String id, String name) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = manager.getNotificationChannel(id);
+            if (channel == null) {
+                channel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
+                channel.enableVibration(true);
+                manager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    private void notification(View view) {
+        final String channelId = "CHANNEL_1";
+        final String channelName = "general";
+        final int messageId = 10;
+
+        createNotificationChannel(channelId, channelName);
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                this,
+                10,
+                new Intent(this, MainActivity.class),
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        PendingIntent browserIntent = PendingIntent.getActivity(
+                this,
+                10,
+                new Intent(Intent.ACTION_VIEW, Uri.parse("https://google.com")),
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        PendingIntent dialIntent = PendingIntent.getActivity(
+                this,
+                10,
+                new Intent(Intent.ACTION_DIAL, Uri.parse("tel:01012345678")),
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.drawable.ic_baseline_rabbit_24)
+                        .setNumber(1)
+                        .setContentTitle("Notification title")
+                        .setContentText("Notification text!")
+                        .setContentIntent(contentIntent)
+                        .addAction(
+                                new NotificationCompat.Action.Builder(
+                                        android.R.drawable.ic_menu_compass, "Browse", browserIntent
+                                ).build()
+                        )
+                        .addAction(
+                                new NotificationCompat.Action.Builder(
+                                        android.R.drawable.ic_menu_call, "Dial", dialIntent
+                                ).build()
+                        )
+                        .setAutoCancel(true);
+        manager.notify(messageId, builder.build());
+    }
+
+    private void bigPictureNotification(View view) {
+        createNotificationChannel(channelId, channelName);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.orange);
+        Notification notification =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(android.R.drawable.ic_menu_camera)
+                        .setContentTitle("Notification title")
+                        .setContentText("Notification text!")
+                        .setAutoCancel(true)
+                        .setLargeIcon(bitmap)
+                        .setStyle(new NotificationCompat.BigPictureStyle()
+                                .bigPicture(bitmap)
+                                .bigLargeIcon(null)
+                                .setBigContentTitle("Big Picture Title")
+                                .setSummaryText("Delicious orange!"))
+                        .build();
+        manager.notify(11, notification);
+    }
+
+    private void bigTextNotification(View view) {
+        createNotificationChannel(channelId, channelName);
+        Notification notification =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(android.R.drawable.ic_menu_camera)
+                        .setContentTitle("Notification title")
+                        .setContentText("Notification text!")
+                        .setAutoCancel(true)
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .setBigContentTitle("Big Text Title")
+                                .setSummaryText("Summary Text")
+                                .bigText("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam odio erat, gravida vel dignissim nec, rutrum sed eros. Mauris leo dui, placerat non odio a, pharetra tristique risus. Vestibulum nec lorem quis tellus venenatis aliquam. Ut sit amet ante in dui ornare tincidunt. Nam non massa dolor. Mauris tempus interdum dolor, a sollicitudin lorem imperdiet eu. Vivamus risus nulla, viverra sit amet mollis scelerisque, tincidunt vel lectus. Nam in aliquam nisi.")
+                        )
+                        .build();
+        manager.notify(11, notification);
+    }
+
+    private void inBoxNotification(View view) {
+        createNotificationChannel(channelId, channelName);
+        Notification notification =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(android.R.drawable.ic_menu_camera)
+                        .setContentTitle("Notification title")
+                        .setContentText("Notification text!")
+                        .setAutoCancel(true)
+                        .setStyle(new NotificationCompat.InboxStyle()
+                                .setBigContentTitle("Inbox Title")
+                                .setSummaryText("Summary Text")
+                                .addLine("11111111111111111111111")
+                                .addLine("11111111111111111111111"))
+                        .build();
+        manager.notify(11, notification);
+    }
+
+    private void messagingNotification(View view) {
+        createNotificationChannel(channelId, channelName);
+
+        Person person1 = new Person.Builder()
+                .setIcon(IconCompat.createWithResource(this, android.R.drawable.ic_menu_help))
+                .setName("person1")
+                .build();
+        Person person2 = new Person.Builder()
+                .setIcon(IconCompat.createWithResource(this, android.R.drawable.ic_menu_agenda))
+                .setName("person2")
+                .build();
+
+        Notification notification =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(android.R.drawable.ic_menu_camera)
+                        .setContentTitle("Notification title")
+                        .setContentText("Notification text!")
+                        .setAutoCancel(true)
+                        .setStyle(
+                                new NotificationCompat.MessagingStyle(person1)
+                                        .addMessage("첫 번째 메시지", System.currentTimeMillis(), person1)
+                                        .addMessage("두 번째 메시지", System.currentTimeMillis(), person2)
+                                        .addMessage("세 번째 메시지", System.currentTimeMillis(), person1)
+                                        .addMessage("네 번째 메시지", System.currentTimeMillis(), person2)
+                        )
+                        .build();
+
+        manager.notify(11, notification);
     }
 }
