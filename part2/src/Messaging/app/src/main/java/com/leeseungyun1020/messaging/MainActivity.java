@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.SimpleAdapter;
@@ -41,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         binding.datepickerDialogButton.setOnClickListener(this::datePickerDialog);
         binding.timepickerDialogButton.setOnClickListener(this::timePickerDialog);
         binding.listDialogButton.setOnClickListener(this::listDialog);
-        binding.customDialogButton.setOnClickListener(this::customListDialog);
+        binding.customListDialogButton.setOnClickListener(this::customListDialog);
+        binding.singleChoiceDialogButton.setOnClickListener(this::singleChoiceDialog);
+        binding.multiChoiceDialogButton.setOnClickListener(this::multiChoiceDialog);
     }
 
     private void toast(View view) {
@@ -201,13 +204,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void customListDialog(View view) {
-
-        String[] data1 = new String[]{"data1", "data2", "data3"};
         String[] data2 = new String[]{"title1", "title2", "title3"};
         int[] data3 = new int[]{R.drawable.ic_baseline_rabbit_24, R.drawable.ic_baseline_rabbit_24, R.drawable.ic_baseline_rabbit_24};
 
         ArrayList<HashMap<String, Object>> list = new ArrayList<>();
-        for (int i = 0; i < data1.length; i++) {
+        for (int i = 0; i < data2.length; i++) {
             HashMap<String, Object> map = new HashMap<>();
             map.put("data2", data2[i]);
             map.put("data3", data3[i]);
@@ -226,6 +227,40 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle("List dialog")
                 .setAdapter(adapter, (dialog, which) -> {
                     binding.statusText.setText("Custom list dialog - " + data2[which]);
+                })
+                .show();
+    }
+
+    private void singleChoiceDialog(View view) {
+        String[] items = new String[]{"Apple", "Orange", "Banana", "Strawberry"};
+        new AlertDialog.Builder(this)
+                .setTitle("Single choice dialog")
+                .setSingleChoiceItems(items, 0, (dialog, which) -> {
+                    binding.statusText.setText("Single choice dialog - " + items[which]);
+                    dialog.dismiss();
+                })
+                .show();
+    }
+
+    private void multiChoiceDialog(View view) {
+        String[] items = new String[]{"Apple", "Orange", "Banana", "Strawberry"};
+        boolean[] checked = new boolean[items.length];
+        new AlertDialog.Builder(this)
+                .setTitle("Single choice dialog")
+                .setMultiChoiceItems(items, checked, (dialog, which, isChecked) -> {
+                    binding.statusText.setText("Multi choice dialog - ");
+                    if (isChecked)
+                        binding.statusText.append("checked " + items[which]);
+                    else
+                        binding.statusText.append("unchecked " + items[which]);
+                })
+                .setPositiveButton("선택", (dialog, which) -> {
+                    binding.statusText.setText("Multi choice dialog - ");
+                    SparseBooleanArray arr = ((AlertDialog) dialog).getListView().getCheckedItemPositions();
+                    for (int i = 0; i < items.length; i++) {
+                        if (arr.get(i))
+                            binding.statusText.append(items[i] + " ");
+                    }
                 })
                 .show();
     }

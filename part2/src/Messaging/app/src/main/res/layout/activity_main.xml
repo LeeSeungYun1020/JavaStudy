@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/multi_choice_dialog_button2" />
+            app:layout_constraintTop_toBottomOf="@+id/multi_choice_dialog_button" />
 
         <Button
             android:id="@+id/big_text_notification_button"
@@ -85,7 +85,7 @@
             app:layout_constraintTop_toBottomOf="@+id/custom_list_dialog_button" />
 
         <Button
-            android:id="@+id/multi_choice_dialog_button2"
+            android:id="@+id/multi_choice_dialog_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
