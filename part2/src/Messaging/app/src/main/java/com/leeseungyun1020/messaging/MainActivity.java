@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -18,7 +19,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.leeseungyun1020.messaging.databinding.ActivityMainBinding;
 import com.leeseungyun1020.messaging.databinding.CustomLayoutBinding;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.function.ObjIntConsumer;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
         binding.customDialogButton.setOnClickListener(this::customDialog);
         binding.datepickerDialogButton.setOnClickListener(this::datePickerDialog);
         binding.timepickerDialogButton.setOnClickListener(this::timePickerDialog);
+        binding.listDialogButton.setOnClickListener(this::listDialog);
+        binding.customDialogButton.setOnClickListener(this::customListDialog);
     }
 
     private void toast(View view) {
@@ -182,6 +187,46 @@ public class MainActivity extends AppCompatActivity {
                 calendar.get(Calendar.HOUR),
                 calendar.get(Calendar.MINUTE),
                 false)
+                .show();
+    }
+
+    private void listDialog(View view) {
+        String[] items = new String[]{"Apple", "Orange", "Banana", "Strawberry"};
+        new AlertDialog.Builder(this)
+                .setTitle("List dialog")
+                .setItems(items, (dialog, which) -> {
+                    binding.statusText.setText("List dialog - " + items[which]);
+                })
+                .show();
+    }
+
+    private void customListDialog(View view) {
+
+        String[] data1 = new String[]{"data1", "data2", "data3"};
+        String[] data2 = new String[]{"title1", "title2", "title3"};
+        int[] data3 = new int[]{R.drawable.ic_baseline_rabbit_24, R.drawable.ic_baseline_rabbit_24, R.drawable.ic_baseline_rabbit_24};
+
+        ArrayList<HashMap<String, Object>> list = new ArrayList<>();
+        for (int i = 0; i < data1.length; i++) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("data2", data2[i]);
+            map.put("data3", data3[i]);
+            list.add(map);
+        }
+
+        SimpleAdapter adapter = new SimpleAdapter(
+                this,
+                list,
+                R.layout.list_item,
+                new String[]{"data2", "data3"},
+                new int[]{R.id.item_text, R.id.item_image}
+        );
+
+        new AlertDialog.Builder(this)
+                .setTitle("List dialog")
+                .setAdapter(adapter, (dialog, which) -> {
+                    binding.statusText.setText("Custom list dialog - " + data2[which]);
+                })
                 .show();
     }
 }

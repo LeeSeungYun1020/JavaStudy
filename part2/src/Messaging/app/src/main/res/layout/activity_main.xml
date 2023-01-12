@@ -82,7 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_custom_dialog_button" />
+            app:layout_constraintTop_toBottomOf="@+id/custom_list_dialog_button" />
 
         <Button
             android:id="@+id/multi_choice_dialog_button2"
@@ -109,12 +109,12 @@
             app:layout_constraintTop_toBottomOf="@+id/timepicker_dialog_button" />
 
         <Button
-            android:id="@+id/list_custom_dialog_button"
+            android:id="@+id/custom_list_dialog_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="list custom dialog"
+            android:text="custom list dialog"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
