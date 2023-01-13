@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
@@ -14,20 +15,22 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 public class TestService extends Service {
-    NotificationManager manager;
+    private NotificationManager manager;
     static final String CHANNEL1_ID = "service";
     static final String CHANNEL1_NAME = "service";
     static final int MESSAGE1_ID = 10;
-    volatile boolean isRunning = false;
-    int i = 0;
+    private volatile boolean isRunning = false;
+    private int i = 0;
+    private LocalBinder binder = new LocalBinder();
 
     public TestService() {
     }
 
+    // 서비스에 접속하면 호출
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return binder;
     }
 
     // 서비스 가동시 호출
@@ -77,5 +80,16 @@ public class TestService extends Service {
                 Log.d("LSYD", "run: " + ++i);
             }
         }
+    }
+
+    class LocalBinder extends Binder{
+
+        public TestService getService() {
+            return TestService.this;
+        }
+    }
+
+    public int getValue() {
+        return i;
     }
 }
