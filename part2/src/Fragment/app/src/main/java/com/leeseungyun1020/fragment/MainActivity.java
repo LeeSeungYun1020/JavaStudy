@@ -11,7 +11,6 @@ import com.leeseungyun1020.fragment.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    String some;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
             case DIALOG:
                 DialogFragment dialogFragment = DialogFragment.newInstance();
                 dialogFragment.show(manager, "dialog");
-                // transaction.replace(R.id.fragmentContainerView, dialogFragment);
                 break;
         }
 

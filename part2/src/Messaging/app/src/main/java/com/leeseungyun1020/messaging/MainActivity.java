@@ -41,6 +41,33 @@ public class MainActivity extends AppCompatActivity {
     private static final String channelId = "Channel_0";
     private static final String channelName = "styled";
 
+    NotificationManager manager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        binding.toastButton.setOnClickListener(this::toast);
+        binding.snackbarButton.setOnClickListener(this::snackbar);
+        binding.snackbarCustomButton.setOnClickListener(this::snackbarCustom);
+        binding.commonDialogButton.setOnClickListener(this::commonDialog);
+        binding.customDialogButton.setOnClickListener(this::customDialog);
+        binding.datepickerDialogButton.setOnClickListener(this::datePickerDialog);
+        binding.timepickerDialogButton.setOnClickListener(this::timePickerDialog);
+        binding.listDialogButton.setOnClickListener(this::listDialog);
+        binding.customListDialogButton.setOnClickListener(this::customListDialog);
+        binding.singleChoiceDialogButton.setOnClickListener(this::singleChoiceDialog);
+        binding.multiChoiceDialogButton.setOnClickListener(this::multiChoiceDialog);
+        binding.notificationButton.setOnClickListener(this::notification);
+        binding.bigPictureNotificationButton.setOnClickListener(this::bigPictureNotification);
+        binding.bigTextNotificationButton.setOnClickListener(this::bigTextNotification);
+        binding.inBoxNotificationButton.setOnClickListener(this::inBoxNotification);
+        binding.messagingNotificationButton.setOnClickListener(this::messagingNotification);
+    }
+
     private void toast(View view) {
         Toast toast = Toast.makeText(this, "TOAST", Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 100);
@@ -257,33 +284,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
-    }
-
-    NotificationManager manager;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        binding.toastButton.setOnClickListener(this::toast);
-        binding.snackbarButton.setOnClickListener(this::snackbar);
-        binding.snackbarCustomButton.setOnClickListener(this::snackbarCustom);
-        binding.commonDialogButton.setOnClickListener(this::commonDialog);
-        binding.customDialogButton.setOnClickListener(this::customDialog);
-        binding.datepickerDialogButton.setOnClickListener(this::datePickerDialog);
-        binding.timepickerDialogButton.setOnClickListener(this::timePickerDialog);
-        binding.listDialogButton.setOnClickListener(this::listDialog);
-        binding.customListDialogButton.setOnClickListener(this::customListDialog);
-        binding.singleChoiceDialogButton.setOnClickListener(this::singleChoiceDialog);
-        binding.multiChoiceDialogButton.setOnClickListener(this::multiChoiceDialog);
-        binding.notificationButton.setOnClickListener(this::notification);
-        binding.bigPictureNotificationButton.setOnClickListener(this::bigPictureNotification);
-        binding.bigTextNotificationButton.setOnClickListener(this::bigTextNotification);
-        binding.inBoxNotificationButton.setOnClickListener(this::inBoxNotification);
-        binding.messagingNotificationButton.setOnClickListener(this::messagingNotification);
     }
 
     private void createNotificationChannel(String id, String name) {

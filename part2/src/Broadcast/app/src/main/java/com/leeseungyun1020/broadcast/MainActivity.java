@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         binding.broadcastTestButton.setOnClickListener((button) -> {
             //Intent intent = new Intent(this, TestReceiver.class);
             // 내부에서 호출할 때는 바로 호출함
-             Intent intent = new Intent("com.leeseungyun1020.testbroadcast");
+            Intent intent = new Intent("com.leeseungyun1020.testbroadcast");
             // 이름으로 바로 동작하지 않음 -> 코드상에서 등록하고 사용 필요
             sendBroadcast(intent);
         });
