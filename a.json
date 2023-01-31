@@ -1,0 +1,238 @@
+{
+  "result": {
+    "bannerList": [
+      {
+        "left": 0,
+        "right": 0,
+        "rotation": 0,
+        "bannerName": "패키지 테스트",
+        "segmentName": "Default",
+        "maximum": 0,
+        "width": 1280,
+        "segmentId": 0,
+        "opacity": 1,
+        "touchEvent": 0,
+        "bannerId": 83,
+        "height": 720,
+        "bottom": 0,
+        "imgList": [
+          {
+            "bottom": 720,
+            "imgURL": "https:\/\/d30y0swoxkbnsm.cloudfront.net\/promotion\/20220808\/a3ccd8b0-6e01-4c27-8a1a-e10f90b9c089.JPG",
+            "top": 0,
+            "left": 0,
+            "right": 736
+          }
+        ],
+        "buttonList": [
+          {
+            "pid": "",
+            "linkId": 0,
+            "bottom": 360,
+            "type": 3,
+            "meta": "",
+            "left": 0,
+            "top": 0,
+            "right": 724,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 1,
+            "bottom": 656,
+            "type": 2,
+            "meta": "",
+            "left": 262,
+            "top": 362,
+            "right": 598,
+            "urlScheme": "",
+            "url": "https:\/\/nexon.co.kr?abc=abc"
+          },
+          {
+            "pid": "",
+            "linkId": 2,
+            "bottom": 720,
+            "type": 9,
+            "meta": "",
+            "left": 0,
+            "top": 612,
+            "right": 132,
+            "urlScheme": "",
+            "url": "https:\/\/www.naver.com"
+          }
+        ],
+        "optionList": [
+        ],
+        "frequency": 0,
+        "top": 0
+      },
+      {
+        "left": 0,
+        "right": 0,
+        "rotation": 1,
+        "bannerName": "세로 배너",
+        "segmentName": "Default",
+        "maximum": 0,
+        "width": 720,
+        "segmentId": 0,
+        "opacity": 1,
+        "touchEvent": 1,
+        "bannerId": 81,
+        "height": 1280,
+        "bottom": 0,
+        "imgList": [
+          {
+            "bottom": 1280,
+            "imgURL": "https:\/\/d30y0swoxkbnsm.cloudfront.net\/promotion\/20220329\/881feb2d-5344-4b12-b200-b4d7667c540d.jpeg",
+            "top": 0,
+            "left": 0,
+            "right": 720
+          }
+        ],
+        "buttonList": [
+          {
+            "pid": "",
+            "linkId": 0,
+            "bottom": 86,
+            "type": 3,
+            "meta": "",
+            "left": 618,
+            "top": 0,
+            "right": 718,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 1,
+            "bottom": 1278,
+            "type": 4,
+            "meta": "",
+            "left": 0,
+            "top": 1166,
+            "right": 272,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 2,
+            "bottom": 178,
+            "type": 9,
+            "meta": "",
+            "left": 0,
+            "top": 0,
+            "right": 246,
+            "urlScheme": "",
+            "url": "www.naver.com"
+          },
+          {
+            "pid": "",
+            "linkId": 3,
+            "bottom": 1280,
+            "type": 2,
+            "meta": "",
+            "left": 504,
+            "top": 1116,
+            "right": 720,
+            "urlScheme": "",
+            "url": "https:\/\/www.nexon.com"
+          }
+        ],
+        "optionList": [
+        ],
+        "frequency": 0,
+        "top": 0
+      },
+      {
+        "left": 0,
+        "right": 0,
+        "rotation": 0,
+        "bannerName": "IOS전용노출배너",
+        "segmentName": "Default",
+        "maximum": 0,
+        "width": 1280,
+        "segmentId": 0,
+        "opacity": 1,
+        "touchEvent": 0,
+        "bannerId": 75,
+        "height": 720,
+        "bottom": 0,
+        "imgList": [
+          {
+            "bottom": 604,
+            "imgURL": "https:\/\/d30y0swoxkbnsm.cloudfront.net\/promotion\/20220225\/db895f85-1500-4c1d-8b90-652f29ce9e2e.png",
+            "top": 0,
+            "left": 0,
+            "right": 604
+          }
+        ],
+        "buttonList": [
+          {
+            "pid": "",
+            "linkId": 0,
+            "bottom": 616,
+            "type": 3,
+            "meta": "",
+            "left": 0,
+            "top": 0,
+            "right": 600,
+            "urlScheme": "",
+            "url": ""
+          }
+        ],
+        "optionList": [
+        ],
+        "frequency": 0,
+        "top": 0
+      },
+      {
+        "left": 0,
+        "right": 0,
+        "rotation": 0,
+        "bannerName": "모든플랫폼전용노출배너",
+        "segmentName": "Default",
+        "maximum": 0,
+        "width": 1280,
+        "segmentId": 0,
+        "opacity": 0.80000001192092896,
+        "touchEvent": 0,
+        "bannerId": 77,
+        "height": 720,
+        "bottom": 0,
+        "imgList": [
+          {
+            "bottom": 720,
+            "imgURL": "https:\/\/d30y0swoxkbnsm.cloudfront.net\/promotion\/20220225\/ae21743f-8ab9-4496-8f67-ea9d275de767.png",
+            "top": 0,
+            "left": 0,
+            "right": 944
+          }
+        ],
+        "buttonList": [
+          {
+            "pid": "",
+            "linkId": 0,
+            "bottom": 716,
+            "type": 3,
+            "meta": "",
+            "left": 0,
+            "top": 0,
+            "right": 966,
+            "urlScheme": "",
+            "url": ""
+          }
+        ],
+        "optionList": [
+        ],
+        "frequency": 0,
+        "top": 0
+      }
+    ]
+  },
+  "errorCode": 0,
+  "errorDetail": "",
+  "requestTag": 49,
+  "errorText": ""
+}

@@ -1,0 +1,198 @@
+{
+  "result": {
+    "bannerList": [
+      {
+        "left": 0,
+        "right": 0,
+        "rotation": 1,
+        "bannerName": "프로모션 배너 설정하고 싶어요~~~!!!",
+        "segmentName": "Default",
+        "maximum": 1,
+        "width": 720,
+        "segmentId": 0,
+        "opacity": 0,
+        "touchEvent": 0,
+        "bannerId": 25,
+        "height": 1280,
+        "bottom": 0,
+        "imgList": [
+          {
+            "bottom": 1280,
+            "imgURL": "https:\/\/d30y0swoxkbnsm.cloudfront.net\/promotion\/20161212\/24faf4d5-87e0-49f6-9656-d73f37dca8d6.png",
+            "top": 0,
+            "left": 0,
+            "right": 720
+          }
+        ],
+        "buttonList": [
+          {
+            "pid": " com.nexon.platform.sdk.item0001",
+            "linkId": 0,
+            "bottom": 702,
+            "type": 5,
+            "meta": "",
+            "left": 360,
+            "top": 386,
+            "right": 720,
+            "urlScheme": "com.nexon.platform.sdk.sample:\/\/webshop?pid=com.nexon.platform.sdk.item0001",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 1,
+            "bottom": 704,
+            "type": 6,
+            "meta": "",
+            "left": 0,
+            "top": 390,
+            "right": 356,
+            "urlScheme": "http:\/\/www.google.com",
+            "url": ""
+          },
+          {
+            "pid": " com.nexon.platform.sdk.item0001",
+            "linkId": 2,
+            "bottom": 1022,
+            "type": 0,
+            "meta": "meta:meta",
+            "left": 362,
+            "top": 704,
+            "right": 720,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 3,
+            "bottom": 1022,
+            "type": 1,
+            "meta": "meta:meta",
+            "left": 0,
+            "top": 704,
+            "right": 356,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 4,
+            "bottom": 386,
+            "type": 2,
+            "meta": "",
+            "left": 360,
+            "top": 68,
+            "right": 714,
+            "urlScheme": "",
+            "url": "https:\/\/www.google.com"
+          },
+          {
+            "pid": "",
+            "linkId": 5,
+            "bottom": 384,
+            "type": 3,
+            "meta": "",
+            "left": 0,
+            "top": 66,
+            "right": 358,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 6,
+            "bottom": 72,
+            "type": 4,
+            "meta": "",
+            "left": 0,
+            "top": 0,
+            "right": 716,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 7,
+            "bottom": 1278,
+            "type": 8,
+            "meta": "",
+            "left": 358,
+            "top": 1026,
+            "right": 716,
+            "urlScheme": "",
+            "url": "https:\/\/www.google.com"
+          }
+        ],
+        "optionList": [
+        ],
+        "frequency": 0,
+        "top": 0
+      },
+      {
+        "left": 0,
+        "right": 0,
+        "rotation": 0,
+        "bannerName": "어카운트 테스트",
+        "segmentName": "test_default",
+        "maximum": 0,
+        "width": 1280,
+        "segmentId": 51,
+        "opacity": 1,
+        "touchEvent": 0,
+        "bannerId": 49,
+        "height": 720,
+        "bottom": 0,
+        "imgList": [
+          {
+            "bottom": 720,
+            "imgURL": "https:\/\/d30y0swoxkbnsm.cloudfront.net\/promotion\/20191031\/85323144-da30-42c0-83a0-665aec259281.PNG",
+            "top": 0,
+            "left": 0,
+            "right": 1200
+          }
+        ],
+        "buttonList": [
+          {
+            "pid": "",
+            "linkId": 0,
+            "bottom": 310,
+            "type": 3,
+            "meta": "",
+            "left": 844,
+            "top": 0,
+            "right": 1200,
+            "urlScheme": "",
+            "url": ""
+          },
+          {
+            "pid": "",
+            "linkId": 1,
+            "bottom": 666,
+            "type": 7,
+            "community": {
+              "country": [
+                "KR"
+              ],
+              "alias": "123456789qmffkqmffk",
+              "communityId": 21,
+              "threadId": 1244617
+            },
+            "meta": "",
+            "left": 132,
+            "top": 556,
+            "right": 1068,
+            "urlScheme": "",
+            "url": ""
+          }
+        ],
+        "optionList": [
+        ],
+        "frequency": 0,
+        "top": 0
+      }
+    ]
+  },
+  "errorCode": 0,
+  "errorDetail": "",
+  "requestTag": 49,
+  "errorText": ""
+}
